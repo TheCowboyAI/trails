@@ -4,13 +4,54 @@
     devShells.default = pkgs.mkShell {
       name = "trails-shell";
       inputsFrom = [
-        self'.devShells.rust
-        config.pre-commit.devShell # See ./nix/modules/pre-commit.nix
+        self'.devShells.rust # import from devshell
+        config.pre-commit.devShell # Implement ./nix/modules/pre-commit.nix
       ];
       packages = with pkgs; [
         just
-        nixd # Nix language server
+
+        # Nix        
+        pkg-config
+        nix-index
+        nixd
+        alejandra
+
+        # Rust
         bacon
+
+        cargo-edit
+        cargo-expand
+        cargo-udeps
+        cargo-whatfeatures
+        cargo-generate
+        cargo-leptos
+        cargo-make
+        cargo-edit
+        leptosfmt
+        trunk
+
+        # wasm
+        wasmtime
+        wasmserve
+        wasm-tools
+        wasm-pack
+        alsa-lib
+
+        # Node
+        nodejs_23
+        nodePackages.tailwindcss
+        nodePackages.typescript-language-server
+        (nodePackages.tailwindcss.overrideAttrs (_: {
+          plugins = [
+            nodePackages."@tailwindcss/aspect-ratio"
+            nodePackages."@tailwindcss/forms"
+            nodePackages."@tailwindcss/language-server"
+            nodePackages."@tailwindcss/line-clamp"
+            nodePackages."@tailwindcss/typography"
+          ];
+        }))
+
+        # dev docs
         config.process-compose.cargo-doc-live.outputs.package
       ];
     };

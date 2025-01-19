@@ -4,6 +4,13 @@
         "jnoortheen.nix-ide",
         "mkhl.direnv",
         "tamasfe.even-better-toml",
-        "fill-labs.dependi"
+        "fill-labs.dependi",
+        "masterustacean.leptos-fmt",
+        "opeolluwa.leptos",
+        "jock.svg",
+        "simonsiefke.svg-preview",
+        "masterustacean.cargo-runner",
+        "panicbit.cargo",
+        "kamadorueda.alejandra",
     ]
 }
