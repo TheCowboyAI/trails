@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ ... }:
 {
   perSystem = { config, self', pkgs, lib, ... }: {
     devShells.default = pkgs.mkShell {
@@ -13,6 +13,7 @@
         # Nix        
         pkg-config
         nix-index
+        nixpkgs-fmt
         nixd
         alejandra
 
@@ -28,6 +29,7 @@
         cargo-leptos
         cargo-make
         cargo-edit
+        dart-sass
         leptosfmt
         trunk
 

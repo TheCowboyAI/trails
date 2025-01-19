@@ -1,50 +1,91 @@
-A template Rust project with fully functional and no-frills Nix support, as well as builtin VSCode configuration to get IDE experience without any manual setup (just [install direnv](https://nixos.asia/en/direnv), open in VSCode and accept the suggestions). It uses [crane](https://crane.dev/), via [rust-flake](https://github.com/juspay/rust-flake).
+<picture>
+    <source srcset="https://raw.githubusercontent.com/leptos-rs/leptos/main/docs/logos/Leptos_logo_Solid_White.svg" media="(prefers-color-scheme: dark)">
+    <img src="https://raw.githubusercontent.com/leptos-rs/leptos/main/docs/logos/Leptos_logo_RGB.svg" alt="Leptos Logo">
+</picture>
 
-> [!NOTE]
-> If you are looking for the original template based on [this blog post](https://srid.ca/rust-nix)'s use of `crate2nix`, browse from [this tag](https://github.com/srid/trails/tree/crate2nix). The evolution of this template can be gleaned from [releases](https://github.com/srid/trails/releases).
+# Leptos Axum Starter Template
 
-## Usage
+This is a template for use with the [Leptos](https://github.com/leptos-rs/leptos) web framework and the [cargo-leptos](https://github.com/akesson/cargo-leptos) tool using [Axum](https://github.com/tokio-rs/axum).
 
-You can use [omnix](https://omnix.page/om/init.html)[^omnix] to initialize this template:
-```
-nix --accept-flake-config run github:juspay/omnix -- init github:srid/trails -o ~/my-rust-project
-```
+## Creating your template repo
 
-[^omnix]: If initializing manually, make sure to:
-    - Change `name` in Cargo.toml.
-    - Run `cargo generate-lockfile` in the nix shelld
-
-## Adapting this template
-
-- There are two CI workflows, and one of them uses Nix which is slower (unless you configure a cache) than the other one based on rustup. Pick one or the other depending on your trade-offs.
-
-## Development (Flakes)
-
-This repo uses [Flakes](https://nixos.asia/en/flakes) from the get-go.
+If you don't have `cargo-leptos` installed you can install it with
 
 ```bash
-# Dev shell
-nix develop
-
-# or run via cargo
-nix develop -c cargo run
-
-# build
-nix build
+cargo install cargo-leptos --locked
 ```
 
-We also provide a [`justfile`](https://just.systems/) for Makefile'esque commands to be run inside of the devShell.
+Then run
+```bash
+cargo leptos new --git https://github.com/leptos-rs/start-axum-0.7
+```
 
-## Tips
+to generate a new project template.
 
-- Run `nix flake update` to update all flake inputs.
-- Run `nix --accept-flake-config run github:juspay/omnix ci` to build _all_ outputs.
-- [pre-commit] hooks will automatically be setup in Nix shell. You can also run `pre-commit run -a` manually to run the hooks (e.g.: to autoformat the project tree using `rustfmt`, `nixpkgs-fmt`, etc.).
+```bash
+cd trails
+```
 
-## Discussion
+to go to your newly created project.  
+Feel free to explore the project structure, but the best place to start with your application code is in `src/app.rs`.  
+Addtionally, Cargo.toml may need updating as new versions of the dependencies are released, especially if things are not working after a `cargo update`.
 
-- [Zulip](https://nixos.zulipchat.com/#narrow/stream/413950-nix)
+## Running your project
 
-## See Also
+```bash
+cargo leptos watch
+```
 
-- [nixos.wiki: Packaging Rust projects with nix](https://nixos.wiki/wiki/Rust#Packaging_Rust_projects_with_nix)
+## Installing Additional Tools
+
+By default, `cargo-leptos` uses `nightly` Rust, `cargo-generate`, and `sass`. If you run into any trouble, you may need to install one or more of these tools.
+
+1. `rustup toolchain install nightly --allow-downgrade` - make sure you have Rust nightly
+2. `rustup target add wasm32-unknown-unknown` - add the ability to compile Rust to WebAssembly
+3. `cargo install cargo-generate` - install `cargo-generate` binary (should be installed automatically in future)
+4. `npm install -g sass` - install `dart-sass` (should be optional in future
+5. Run `npm install` in end2end subdirectory before test
+
+## Compiling for Release
+```bash
+cargo leptos build --release
+```
+
+Will generate your server binary in target/server/release and your site package in target/site
+
+## Testing Your Project
+```bash
+cargo leptos end-to-end
+```
+
+```bash
+cargo leptos end-to-end --release
+```
+
+Cargo-leptos uses Playwright as the end-to-end test tool.  
+Tests are located in end2end/tests directory.
+
+## Executing a Server on a Remote Machine Without the Toolchain
+After running a `cargo leptos build --release` the minimum files needed are:
+
+1. The server binary located in `target/server/release`
+2. The `site` directory and all files within located in `target/site`
+
+Copy these files to your remote server. The directory structure should be:
+```text
+trails
+site/
+```
+Set the following environment variables (updating for your project as needed):
+```sh
+export LEPTOS_OUTPUT_NAME="trails"
+export LEPTOS_SITE_ROOT="site"
+export LEPTOS_SITE_PKG_DIR="pkg"
+export LEPTOS_SITE_ADDR="127.0.0.1:3000"
+export LEPTOS_RELOAD_PORT="3001"
+```
+Finally, run the server binary.
+
+## Licensing
+
+This template itself is released under the Unlicense. You should replace the LICENSE for your own application with an appropriate license if you plan to release it publicly.
