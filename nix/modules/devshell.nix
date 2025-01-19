@@ -19,6 +19,7 @@
         # Rust
         bacon
 
+        cargo
         cargo-edit
         cargo-expand
         cargo-udeps

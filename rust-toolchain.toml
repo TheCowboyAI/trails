@@ -8,7 +8,6 @@ components = [
   "rust-std",
   "rust-analyzer",
   "clippy",
-  "cargo",
 ]
 targets = [
   "x86_64-unknown-linux-gnu",
