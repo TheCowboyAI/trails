@@ -7,13 +7,16 @@
 , git
 , pkg-config
 , zlib
+, dart-sass
+, nodejs_23
+, nodePackages
 , config
 ,
 }:
 
 rustPlatform.buildRustPackage {
   pname = "trails";
-  version = "unstable";
+  version = "0.1.0";
 
   src = fetchFromGitHub {
     owner = "thecowboyai";
@@ -36,15 +39,6 @@ rustPlatform.buildRustPackage {
     nodejs_23
     nodePackages.tailwindcss
     nodePackages.typescript-language-server
-    (nodePackages.tailwindcss.overrideAttrs (_: {
-      plugins = [
-        nodePackages."@tailwindcss/aspect-ratio"
-        nodePackages."@tailwindcss/forms"
-        nodePackages."@tailwindcss/language-server"
-        nodePackages."@tailwindcss/line-clamp"
-        nodePackages."@tailwindcss/typography"
-      ];
-    }))
 
     # dev docs
     config.process-compose.cargo-doc-live.outputs.package
@@ -55,7 +49,7 @@ rustPlatform.buildRustPackage {
     description = "Trails is an enhanced Internet Search experiance";
     homepage = "https://github.com/thecowboyai/trails";
     license = licenses.mit;
-    maintainers = with maintainers; [ thecowboyai ];
+    maintainers = with maintainers; [ cowboyai ];
     mainProgram = "trails";
   };
 }
