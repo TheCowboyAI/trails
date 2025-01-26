@@ -1,38 +1,101 @@
-#[cfg(feature = "ssr")]
-#[tokio::main]
-async fn main() {
-    use axum::Router;
-    use leptos::logging::log;
-    use leptos::prelude::*;
-    use leptos_axum::{generate_route_list, LeptosRoutes};
-    use trails::modules::app::*;
+use std::{f32::consts::PI, time::Instant};
 
-    let conf = get_configuration(None).unwrap();
-    let addr = conf.leptos_options.site_addr;
-    let leptos_options = conf.leptos_options;
-    // Generate the list of routes in your Leptos App
-    let routes = generate_route_list(App);
+use iced::mouse;
+use iced::widget::canvas::{self, stroke, Cache, Canvas, Geometry, Path, Stroke};
+use iced::window;
+use iced::{Element, Fill, Point, Rectangle, Renderer, Subscription, Theme};
 
-    let app = Router::new()
-        .leptos_routes(&leptos_options, routes, {
-            let leptos_options = leptos_options.clone();
-            move || shell(leptos_options.clone())
-        })
-        .fallback(leptos_axum::file_and_error_handler(shell))
-        .with_state(leptos_options);
-
-    // run our app with hyper
-    // `axum::Server` is a re-export of `hyper::Server`
-    log!("listening on http://{}", &addr);
-    let listener = tokio::net::TcpListener::bind(&addr).await.unwrap();
-    axum::serve(listener, app.into_make_service())
-        .await
-        .unwrap();
+pub fn main() -> iced::Result {
+    iced::application("Arc - Iced", Arc::update, Arc::view)
+        .subscription(Arc::subscription)
+        .theme(|_| Theme::Dark)
+        .antialiasing(true)
+        .run()
 }
 
-#[cfg(not(feature = "ssr"))]
-pub fn main() {
-    // no client-side main function
-    // unless we want this to work with e.g., Trunk for pure client-side testing
-    // see lib.rs for hydration function instead
+struct Arc {
+    start: Instant,
+    cache: Cache,
+}
+
+#[derive(Debug, Clone, Copy)]
+enum Message {
+    Tick,
+}
+
+impl Arc {
+    fn update(&mut self, _: Message) {
+        self.cache.clear();
+    }
+
+    fn view(&self) -> Element<Message> {
+        Canvas::new(self).width(Fill).height(Fill).into()
+    }
+
+    fn subscription(&self) -> Subscription<Message> {
+        window::frames().map(|_| Message::Tick)
+    }
+}
+
+impl Default for Arc {
+    fn default() -> Self {
+        Arc {
+            start: Instant::now(),
+            cache: Cache::default(),
+        }
+    }
+}
+
+impl<Message> canvas::Program<Message> for Arc {
+    type State = ();
+
+    fn draw(
+        &self,
+        _state: &Self::State,
+        renderer: &Renderer,
+        theme: &Theme,
+        bounds: Rectangle,
+        _cursor: mouse::Cursor,
+    ) -> Vec<Geometry> {
+        let geometry = self.cache.draw(renderer, bounds.size(), |frame| {
+            let palette = theme.palette();
+
+            let center = frame.center();
+            let radius = frame.width().min(frame.height()) / 5.0;
+
+            let start = Point::new(center.x, center.y - radius);
+
+            let angle = (self.start.elapsed().as_millis() % 10_000) as f32 / 10_000.0 * 2.0 * PI;
+
+            let end = Point::new(
+                center.x + radius * angle.cos(),
+                center.y + radius * angle.sin(),
+            );
+
+            let circles = Path::new(|b| {
+                b.circle(start, 10.0);
+                b.move_to(end);
+                b.circle(end, 10.0);
+            });
+
+            frame.fill(&circles, palette.text);
+
+            let path = Path::new(|b| {
+                b.move_to(start);
+                b.arc_to(center, end, 50.0);
+                b.line_to(end);
+            });
+
+            frame.stroke(
+                &path,
+                Stroke {
+                    style: stroke::Style::Solid(palette.text),
+                    width: 10.0,
+                    ..Stroke::default()
+                },
+            );
+        });
+
+        vec![geometry]
+    }
 }

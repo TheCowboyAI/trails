@@ -1,19 +1,24 @@
 { inputs, ... }:
 {
   imports = [
-    inputs.rust-flake.flakeModules.default
-    inputs.rust-flake.flakeModules.nixpkgs
-    inputs.process-compose-flake.flakeModule
-    inputs.cargo-doc-live.flakeModule
   ];
-  perSystem = { config, self', pkgs, lib, ... }: {
-    rust-project.crates."trails".crane.args = {
-      buildInputs = lib.optionals pkgs.stdenv.isDarwin (
-        with pkgs.darwin.apple_sdk.frameworks; [
-          IOKit
-        ]
-      );
+
+  perSystem = { config, self', pkgs, lib, ... }:
+    let
+      inherit (lib.importTOML (inputs.self + "/Cargo.toml")) package;
+    in
+    {
+      packages = {
+        ${package.name} = pkgs.rustPlatform.buildRustPackage {
+          inherit (package) version;
+          cargoLock.lockFile = (inputs.self + "/Cargo.lock");
+
+          pname = package.name;
+          src = inputs.self;
+
+        };
+
+        default = config.packages.${package.name};
+      };
     };
-    packages.default = self'.packages.trails;
-  };
 }

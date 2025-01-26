@@ -1,17 +1,31 @@
 { ... }:
 {
   perSystem = { config, self', pkgs, lib, ... }: {
-    devShells.default = pkgs.mkShell {
-      name = "trails-shell";
-      inputsFrom = [
-        self'.devShells.rust # import from devshell
-        config.pre-commit.devShell # Implement ./nix/modules/pre-commit.nix
+    devShells.default = pkgs.mkShell rec {
+      name = "trails-devShell";
+      # inputsFrom = [
+      #   config.pre-commit.devShell # Implement ./nix/modules/pre-commit.nix
+      # ];
+      buildInputs = with pkgs; [
+        expat
+        fontconfig
+        freetype
+        freetype.dev
+        libGL
+        pkg-config
+        xorg.libX11
+        xorg.libXcursor
+        xorg.libXi
+        xorg.libXrandr
+        wayland
+        libxkbcommon
       ];
+
+      # for the running shell
       packages = with pkgs; [
         just
 
         # Nix        
-        pkg-config
         nix-index
         nixpkgs-fmt
         nixd
@@ -20,18 +34,15 @@
         # Rust
         bacon
 
+        # cargo
         cargo
         cargo-edit
         cargo-expand
         cargo-udeps
         cargo-whatfeatures
         cargo-generate
-        cargo-leptos
         cargo-make
         cargo-edit
-        dart-sass
-        leptosfmt
-        trunk
 
         # wasm
         wasmtime
@@ -39,24 +50,9 @@
         wasm-tools
         wasm-pack
         alsa-lib
-
-        # Node
-        nodejs_23
-        nodePackages.tailwindcss
-        nodePackages.typescript-language-server
-        (nodePackages.tailwindcss.overrideAttrs (_: {
-          plugins = [
-            nodePackages."@tailwindcss/aspect-ratio"
-            nodePackages."@tailwindcss/forms"
-            nodePackages."@tailwindcss/language-server"
-            nodePackages."@tailwindcss/line-clamp"
-            nodePackages."@tailwindcss/typography"
-          ];
-        }))
-
-        # dev docs
-        config.process-compose.cargo-doc-live.outputs.package
       ];
+      LD_LIBRARY_PATH =
+        builtins.foldl' (a: b: "${a}:${b}/lib") "${pkgs.vulkan-loader}/lib" buildInputs;
     };
   };
 }
