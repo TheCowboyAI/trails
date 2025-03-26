@@ -1,49 +1,69 @@
 # Cowboy AI - Trails
-Trails is an AI enhanced internet search tool.
+Trails is an AI Research Assistant that uses the internet or private data to find information.
 
-This is completely unready and only here testing in public... we are pre-alpha right now.
+It can compile information gathered into Research Documents or Proposals.
 
-Here is our philosophy.
-    - This is an Event-sourced solution
-    - We use NixOS and NixOS Modules
-    - We use a Pod Architecture for micro-services
-    - This is Open Source under an MIT License
+We keep notes about the research to guide next steps.
 
-This requires some opinions and following some standards.
+We use @research.mdc to guide the research process.
 
-We leverage:
+Part of the research process is to build a Vocabulary.
 
-    - nats
-    - searxng
-    - ollama
-    - nginx
+Vocabulary is a list of concepts and their definitions, we build idioms, taxonomies, ontologies, and knowledge graphs.
 
-and our custom UI written in Rust with Leptos and Axum.
+We use @vocabulary.mdc to guide the Vocabulary research process.
 
-ALL of these are NixOS "services", meaning, they are already available as pre-understood by NixOS and you can just configure them.
+Vocabulary is used to build a Research Document or Business Proposal.
 
-If I want to make a NixOS system that runs any of these services, it is very straight-forward, see the examples in [./nix/modules].
+Our goal is to research a concept, and then use the notes to build a Research Document or Business Proposal as a Published Work.
 
-If I want to compose these "services" together in a "pod" then I simply need to follow some standard practices that kubernetes also uses to arrange the network, integration and orchestration.
+We can use the internet to find information, but we will also be using private data.
 
-As NixOS Modules we have a common language to speak, "nix" and a common way to debug our system.
+We will be using specific sites, such as @web [ARXIV](https://arxiv.org/) to find supporting research documentation, and we will use private data through MCP servers.
 
-If we want kubernetes, then that should just be an option we can enable and configure.
+## Features
+- Integration with Cursor.sh's AI capabilities
+- Driven primarily using Cursor's Composer in Agent mode.
+- Automated research document generation
+- Vocabulary and knowledge graph management
+- Support for both public (arXiv) and private (MCP) data sources
 
-Yes, there are a few samples of doing this in the wild, but we wanted to formalize this into a real framework of understanding.
+## Project Structure
+```
+.cursor/
+    rules/
+      research.mdc # Research methodology
+      vocabulary.mdc # Vocabulary management
+```
 
-It's all Nix, and it's all Graphs.
+## Research Workflow
+1. **Research Initiation**
+   - Define research scope using research.mdc
+   - Set up vocabulary tracking using vocabulary.mdc
+   - Initialize Concept memory tracking
 
-Every configuration should be in nix and export to the proper native configurations... This includes all builds of the source.
+2. **Data Collection**
+   - Use Cursor.sh's AI capabilities for initial research
+   - Gather data from arXiv and MCP servers
+   - Maintain progress in the git repository, adding notes, references, and images.
+   - use ATOMIC git commits to track progress.
 
-This module for trails is one such example.
-### flake.nix
-contains a development environment to build the module
+3. **Analysis & Documentation**
+   - Process and analyze collected data
+   - Update vocabulary and knowledge graphs
+   - Generate research documents or proposals
 
-### package.nix
-contains build instructions for src
+4. **Review & Iteration**
+   - Review findings with human collaborators
+   - Update project memory with decisions
+   - Iterate based on feedback
 
-### default.nix
-contains installation instructions for binaries
+## Cursor.sh Integration
+- Leverages Cursor.sh's AI capabilities for research assistance
+- Uses .cursor/rules for configuration and methodology
+- Maintains local-first architecture for data management
+- Local data is a git repository
+- Integrates with Cursor.sh's file system and workspace features
 
-For the root of CIM - Composable Information Machine philosophy, see [https://github.com/thecowboyai/cim-start]
+## License
+MIT

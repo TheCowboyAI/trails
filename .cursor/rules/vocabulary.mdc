@@ -1,0 +1,158 @@
+---
+description: Rules for maintaining consistent domain vocabulary and ubiquitous language
+glob: **/*.md
+---
+name: "Vocabulary Management"
+
+# Domain Vocabulary Management
+
+## Purpose
+Maintain a consistent ubiquitous language across the project by tracking and organizing domain-specific terms, concepts, and relationships.
+
+## Vocabulary Structure
+
+### Term Categories
+1. **Domain Objects**
+   - Aggregates
+   - Entities
+   - Value Objects
+   - Services
+
+2. **Technical Concepts**
+   - Patterns
+   - Architectures
+   - Protocols
+   - Algorithms
+
+3. **Business Concepts**
+   - Processes
+   - Rules
+   - Workflows
+   - Policies
+
+4. **Cross-Cutting Terms**
+   - Security
+   - Configuration
+   - Monitoring
+   - Events
+
+## Ontology Organization
+
+### Primary Taxonomies
+Primary Taxonomies are the highest level of organization for the Vocabulary.
+They are determined by reading the @README.md file.
+
+### Secondary Taxonomies
+Secondary Taxonomies are the next level of organization for the Vocabulary.
+They are determined by reading the entire repository and parsing the information against known Domains.
+
+### Evolution of Taxonomies
+Taxonomies are evolved through the research process.
+As we progress with gathering and filtering research through our Notes, we will continually adjust the Fragment text to reflect our new understandings.
+
+###  Documentation Rules
+
+### Term Definition
+
+### Term: [Term Name]
+- **Category**: [Domain Object|Technical Concept|Business Concept|Cross-Cutting]
+- **Type**: [Aggregate|Entity|Value Object|Service|etc.]
+- **Taxonomy**: [Primary taxonomy this belongs to]
+- **Idiom**: [Phrases of words that are used together and form a distinct meaning]
+- **Definition**: Clear, concise definition
+- **Relationships**:
+  * [Relationship Type]: Related terms
+- **Usage Context**: Where/how this term is used
+- **Code Reference**: Link to implementing code (if applicable)
+
+### Knowledge Graph
+- Terms must be connected to at least one other term
+- Relationships must be explicitly defined
+- Circular dependencies must be documented
+- Terms should reference their implementation
+
+## Maintenance
+
+### Term Addition Process
+1. Identify new term
+2. Categorize appropriately
+3. Define relationships
+4. Document usage
+5. Update knowledge graph
+6. Cross-reference Idioms
+
+### Term Review Process
+1. Regular review schedule
+2. Check for consistency
+3. Validate relationships
+4. Update definitions
+5. Remove obsolete terms
+
+### Version Control
+1. Track term changes
+2. Document term evolution
+3. Maintain history
+4. Handle deprecation
+
+rules:
+  - name: "Term Definition Format"
+    pattern: "### Term:"
+    ensure:
+      - "Follows term definition template"
+      - "Includes all required sections"
+      - "Links to related terms"
+    message: "Term definitions must follow the standard format"
+    severity: "error"
+
+  - name: "Taxonomy Consistency"
+    pattern: "\\*\\*Taxonomy\\*\\*:"
+    ensure:
+      - "Uses defined taxonomies"
+      - "Maintains hierarchy"
+      - "Links related terms"
+    message: "Terms must belong to defined taxonomies"
+    severity: "error"
+
+  - name: "Relationship Validity"
+    pattern: "\\*\\*Relationships\\*\\*:"
+    ensure:
+      - "Uses defined relationship types"
+      - "Links to existing terms"
+      - "Maintains consistency"
+    message: "Relationships must use defined types and link to existing terms"
+    severity: "error"
+
+  - name: "Knowledge Graph Integrity"
+    pattern: "\\*\\*Usage Context\\*\\*:"
+    ensure:
+      - "References implementation"
+      - "Documents context"
+      - "Maintains connections"
+    message: "Terms must maintain knowledge graph integrity"
+    severity: "warning"
+
+suggestions:
+  - when: "adding_term"
+    suggest: |
+      1. Check existing taxonomies
+      2. Use standard definition format
+      3. Define clear relationships
+      4. Document usage context
+      5. Update related terms
+      6. Verify knowledge graph
+
+  - when: "updating_term"
+    suggest: |
+      1. Review existing relationships
+      2. Update affected terms
+      3. Maintain consistency
+      4. Document changes
+      5. Update knowledge graph
+
+  - when: "removing_term"
+    suggest: |
+      1. Document reason
+      2. Update related terms
+      3. Maintain graph integrity
+      4. Archive definition
+      5. Update documentation 
