@@ -332,3 +332,75 @@ Example workflow execution:
    - Monitor dependencies
    - Update timeline
    - Report progress
+
+## Research Performance Optimization
+1. **Research Caching**
+   ```
+   /manage_cache """
+   [{{DATE}}] Cache Management:
+   - Cache Type: {{CACHE_TYPE}}
+   - Size: {{CACHE_SIZE}}
+   - Validity: {{CACHE_VALIDITY}}
+   - Update Strategy: {{UPDATE_STRATEGY}}
+   """
+   ```
+
+2. **Cache Types**
+   - Research results cache
+   - Citation cache
+   - Template cache
+   - Vocabulary cache
+
+3. **Cache Management**
+   - Set cache policies
+   - Monitor cache usage
+   - Implement cache invalidation
+   - Optimize cache size
+
+## Batch Processing
+1. **Batch Operations**
+   ```
+   /batch_process """
+   [{{DATE}}] Batch Processing:
+   - Operation: {{OPERATION_TYPE}}
+   - Batch Size: {{BATCH_SIZE}}
+   - Priority: {{PRIORITY}}
+   - Dependencies: {{DEPENDENCIES}}
+   """
+   ```
+
+2. **Batch Types**
+   - Citation processing
+   - Reference validation
+   - Template generation
+   - Document compilation
+
+3. **Batch Management**
+   - Schedule batch jobs
+   - Monitor progress
+   - Handle failures
+   - Optimize throughput
+
+## Progress Indicators
+1. **Performance Metrics**
+   ```
+   /track_performance """
+   [{{DATE}}] Performance Status:
+   - Response Time: {{RESPONSE_TIME}}
+   - Memory Usage: {{MEMORY_USAGE}}
+   - Cache Hit Rate: {{CACHE_HIT_RATE}}
+   - Processing Speed: {{PROCESSING_SPEED}}
+   """
+   ```
+
+2. **Resource Monitoring**
+   - CPU utilization
+   - Memory consumption
+   - Disk usage
+   - Network efficiency
+
+3. **Optimization Targets**
+   - Set performance goals
+   - Track improvements
+   - Identify bottlenecks
+   - Implement optimizations
