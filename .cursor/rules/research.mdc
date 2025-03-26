@@ -191,4 +191,71 @@ Example workflow execution:
 - Next Milestone: {{NEXT_MILESTONE}}
 - Blockers: {{CURRENT_BLOCKERS}}
 """
-``` 
+```
+
+## Research Template System
+1. **Template Types**
+   - Research Paper Template
+   - Business Proposal Template
+   - Concept Analysis Template
+   - Literature Review Template
+
+2. **Template Structure**
+   ```
+   /generate_template """
+   [{{DATE}}] Template Generation:
+   - Type: {{TEMPLATE_TYPE}}
+   - Sections: {{REQUIRED_SECTIONS}}
+   - Format: {{OUTPUT_FORMAT}}
+   - Style: {{DOCUMENT_STYLE}}
+   """
+   ```
+
+3. **Template Management**
+   - Version control templates
+   - Track template usage
+   - Update based on feedback
+   - Maintain consistency
+
+## Citation Management
+1. **Citation Types**
+   - Academic citations (APA, MLA, Chicago)
+   - Technical references
+   - Code citations
+   - External links
+
+2. **Citation Automation**
+   ```
+   /manage_citations """
+   [{{DATE}}] Citation Processing:
+   - Source: {{SOURCE_TYPE}}
+   - Format: {{CITATION_FORMAT}}
+   - Validation: {{CITATION_VALIDATION}}
+   - Updates: {{CITATION_UPDATES}}
+   """
+   ```
+
+3. **Citation Tracking**
+   - Track citation usage
+   - Validate references
+   - Update broken links
+   - Maintain bibliography
+
+## Research Checklist System
+1. **Pre-Research Checklist**
+   - Define research scope
+   - Set objectives
+   - Identify resources
+   - Plan methodology
+
+2. **Research Process Checklist**
+   - Data collection
+   - Analysis steps
+   - Documentation
+   - Validation
+
+3. **Post-Research Checklist**
+   - Review findings
+   - Update documentation
+   - Share results
+   - Plan next steps 
