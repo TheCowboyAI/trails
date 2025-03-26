@@ -259,3 +259,76 @@ Example workflow execution:
    - Update documentation
    - Share results
    - Plan next steps 
+
+## Research Review Workflow
+1. **Review Process**
+   ```
+   /initiate_review """
+   [{{DATE}}] Review Initiation:
+   - Research Topic: {{TOPIC}}
+   - Reviewers: {{REVIEWERS}}
+   - Deadline: {{DEADLINE}}
+   - Review Criteria: {{CRITERIA}}
+   """
+   ```
+
+2. **Review Stages**
+   - Initial Review
+   - Technical Review
+   - Peer Review
+   - Final Review
+
+3. **Review Management**
+   - Track review status
+   - Manage reviewer assignments
+   - Collect feedback
+   - Address comments
+
+## Feedback Collection System
+1. **Feedback Types**
+   - Technical feedback
+   - Methodology feedback
+   - Content feedback
+   - Presentation feedback
+
+2. **Feedback Processing**
+   ```
+   /process_feedback """
+   [{{DATE}}] Feedback Processing:
+   - Source: {{FEEDBACK_SOURCE}}
+   - Type: {{FEEDBACK_TYPE}}
+   - Priority: {{PRIORITY}}
+   - Action Items: {{ACTION_ITEMS}}
+   """
+   ```
+
+3. **Feedback Integration**
+   - Categorize feedback
+   - Track resolution status
+   - Update documentation
+   - Notify stakeholders
+
+## Research Milestone Tracking
+1. **Milestone Definition**
+   - Research phases
+   - Key deliverables
+   - Dependencies
+   - Success criteria
+
+2. **Milestone Monitoring**
+   ```
+   /track_milestone """
+   [{{DATE}}] Milestone Status:
+   - Name: {{MILESTONE_NAME}}
+   - Status: {{STATUS}}
+   - Progress: {{PROGRESS}}%
+   - Dependencies: {{DEPENDENCIES}}
+   - Risks: {{RISKS}}
+   """
+   ```
+
+3. **Milestone Management**
+   - Track completion
+   - Monitor dependencies
+   - Update timeline
+   - Report progress
