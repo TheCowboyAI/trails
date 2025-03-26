@@ -144,4 +144,51 @@ The system will automatically:
 Example workflow execution:
 ```
 /new_research --concept="CIM Architecture" --goal="Establish mathematical foundations"
+```
+
+## Research Validation
+1. **Concept Validation**
+   - Verify concept uniqueness and novelty
+   - Check for existing similar research
+   - Validate theoretical foundations
+   - Quality Score: {{VALIDATION_SCORE}}/100
+
+2. **Methodology Validation**
+   - Verify research methods alignment
+   - Validate data collection approach
+   - Check analysis methodology
+   - Quality Score: {{METHODOLOGY_SCORE}}/100
+
+3. **Results Validation**
+   - Verify findings reproducibility
+   - Validate statistical significance
+   - Check result consistency
+   - Quality Score: {{RESULTS_SCORE}}/100
+
+## Research Quality Metrics
+1. **Source Quality**
+   - Citation count: {{CITATION_COUNT}}
+   - Source diversity: {{SOURCE_DIVERSITY}}
+   - Peer review status: {{PEER_REVIEW_STATUS}}
+
+2. **Research Depth**
+   - Analysis depth: {{ANALYSIS_DEPTH}}
+   - Methodology rigor: {{METHODOLOGY_RIGOR}}
+   - Result reliability: {{RESULT_RELIABILITY}}
+
+3. **Impact Assessment**
+   - Theoretical impact: {{THEORETICAL_IMPACT}}
+   - Practical applications: {{PRACTICAL_APPLICATIONS}}
+   - Future implications: {{FUTURE_IMPLICATIONS}}
+
+## Progress Tracking
+```
+/track_progress """
+[{{DATE}}] Research Progress:
+- Phase: {{CURRENT_PHASE}}
+- Completion: {{COMPLETION_PERCENTAGE}}%
+- Quality Score: {{OVERALL_QUALITY}}/100
+- Next Milestone: {{NEXT_MILESTONE}}
+- Blockers: {{CURRENT_BLOCKERS}}
+"""
 ``` 
